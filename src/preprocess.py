@@ -9,8 +9,15 @@ p = yaml.safe_load(open("params.yaml"))["preprocess"]
 # def normalize(x):
 #     return x.astype("float32") / 255.0
 
+# def normalize(x):
+#     return x.astype("float32") / 255.0
+
 def normalize(x):
-    return np.sqrt(x.astype("float32") / 255.0)
+    x = x.astype("float32")
+    mn = x.min(axis=(1, 2), keepdims=True)
+    mx = x.max(axis=(1, 2), keepdims=True)
+    x = (x - mn) / (mx - mn + 1e-8)
+    return np.sqrt(x)
 
 
 d = np.load("data/raw/fashion_mnist.npz")
