@@ -6,8 +6,11 @@ from sklearn.model_selection import train_test_split
 p = yaml.safe_load(open("params.yaml"))["preprocess"]
 
 
+# def normalize(x):
+#     return x.astype("float32") / 255.0
+
 def normalize(x):
-    return x.astype("float32") / 255.0
+    return np.sqrt(x.astype("float32") / 255.0)
 
 
 d = np.load("data/raw/fashion_mnist.npz")
